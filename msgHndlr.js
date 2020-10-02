@@ -690,8 +690,9 @@ module.exports = msgHandler = async (client, message) => {
             console.log(nsfw)
             await client.sendFileFromUrl(from, `${url}`, 'meme.jpg', `${title}`)
             break
-        case '!help':
-            client.sendText(from, help)
+        case '!menu':
+		client.sendText(from, menu.menu(pushname))
+           
             break
         case '!readme':
             await client.reply(from, readme, id)
