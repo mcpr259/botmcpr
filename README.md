@@ -26,7 +26,7 @@ you've just cloned!!
 ```
 
 ### Usage
-Before running this script, first edit [`THIS`](https://github.com/MhankBarBar/whatsapp-bot/blob/master/msgHndlr.js#L55) section with your WhatsApp number, remember your WhatsApp number!  Not a bot number, then
+Before running this script, first edit [`THIS`](https://github.com/mcpr259/botmcpr/blob/master/msgHndlr.js#L55) section with your WhatsApp number, remember your WhatsApp number!  Not a bot number, then
 ```bash
 > npm start
 ```
