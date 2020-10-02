@@ -102,7 +102,7 @@ Make sure all the necessary dependencies are installed.
 * [`SomnathDas/Whatsapp-Botto-Re`](https://github.com/SomnathDas/Whatsapp-Botto-Re)
 * [`mhankbarbar/whatsapp-bot`](https://github.com/mhankbarbar/whatsapp-bot)
 ### Donate
-* [`Saweria`](https://saweria.co/donate/mcpr259)
+* [`Saweria`](https://saweria.co/donate/mcpr25)
 
 ### Number of bot
 * [`click here`](https://wa.me/6289518552847)
