@@ -100,9 +100,9 @@ Make sure all the necessary dependencies are installed.
 * [`open-wa/wa-automate-nodejs`](https://github.com/open-wa/wa-automate-nodejs)
 * [`YogaSakti/imageToSticker`](https://github.com/YogaSakti/imageToSticker)
 * [`SomnathDas/Whatsapp-Botto-Re`](https://github.com/SomnathDas/Whatsapp-Botto-Re)
-
+* [`mhankbarbar/whatsapp-bot`](https://github.com/mhankbarbar/whatsapp-bot)
 ### Donate
 * [`Saweria`](https://saweria.co/donate/mhankbarbar)
 
 ### Number of bot
-* [`click here`](https://wa.me/6285242137937)
+* [`click here`](https://wa.me/6289518552847)
