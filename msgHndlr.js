@@ -108,9 +108,13 @@ module.exports = msgHandler = async (client, message) => {
                 }
             }
             break
+	case 'speed':
+        case 'ping':
+            await client.sendText(from, `Pong!!!!\nSpeed: ${processTime(t, moment())} _Second_`)
+            break
         case '!donasi':
         case '!donate':
-            client.sendLinkWithAutoPreview(from, 'https://saweria.co/donate/mhankbarbar', donate)
+            client.sendLinkWithAutoPreview(from, 'https://saweria.co/donate/mcpr25', donate)
             break
         case '!tts':
             if (args.length === 1) return await client.reply(from, 'Kirim perintah *!tts* [id, en, jp, ar] [teks], contoh *!tts* id halo semua')
