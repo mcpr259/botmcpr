@@ -8,7 +8,7 @@ const { spawn } = require('child_process')
 const nhentai = require('nhentai-js')
 const { API } = require('nhentai-api')
 const { liriklagu, quotemaker, randomNimek, fb, sleep, jadwalTv } = require('./lib/functions')
-const { menu, snk, info, donate, readme, listChannel } = require('./lib/help')
+const { help, snk, info, donate, readme, listChannel } = require('./lib/help')
 
 moment.tz.setDefault('Asia/Jakarta').locale('id')
 
