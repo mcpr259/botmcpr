@@ -8,7 +8,7 @@ const { spawn } = require('child_process')
 const nhentai = require('nhentai-js')
 const { API } = require('nhentai-api')
 const { liriklagu, quotemaker, randomNimek, fb, sleep, jadwalTv } = require('./lib/functions')
-const { help, snk, info, donate, readme, listChannel } = require('./lib/help')
+const { menu, snk, info, donate, readme, listChannel } = require('./lib/help')
 
 moment.tz.setDefault('Asia/Jakarta').locale('id')
 
@@ -52,7 +52,7 @@ module.exports = msgHandler = async (client, message) => {
         const groupAdmins = isGroupMsg ? await client.getGroupAdmins(groupId) : ''
         const isGroupAdmins = isGroupMsg ? groupAdmins.includes(sender.id) : false
         const isBotGroupAdmins = isGroupMsg ? groupAdmins.includes(botNumber + '@c.us') : false
-        const ownerNumber = '6289518552847@c.us'
+        const ownerNumber = '6283107660652@c.us'
         const isOwner = sender.id === ownerNumber
         const isBlocked = blockNumber.includes(sender.id) === true
         const uaOverride = 'WhatsApp/2.2029.4 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'
@@ -108,10 +108,7 @@ module.exports = msgHandler = async (client, message) => {
                 }
             }
             break
-	case 'speed':
-        case 'ping':
-            await client.sendText(from, `Pong!!!!\nSpeed: ${processTime(t, moment())} _Second_`)
-            break
+
         case '!donasi':
         case '!donate':
             client.sendLinkWithAutoPreview(from, 'https://saweria.co/donate/mcpr25', donate)
@@ -156,7 +153,7 @@ module.exports = msgHandler = async (client, message) => {
             spawn('convert', [
                 './img/before.jpg',
                 '-font',
-                'Indie-Flower',
+                'IndieFlower',
                 '-size',
                 '700x960',
                 '-pointsize',
@@ -268,7 +265,7 @@ module.exports = msgHandler = async (client, message) => {
             const bmkg = await get.get('https://mhankbarbar.herokuapp.com/api/infogempa').json()
             const { Jam, Tanggal, Bujur, Kedalaman, Lintang, Magnitude, Potensi, Wilayah1, Wilayah2, Wilayah3, Wilayah4, Wilayah5, point } = bmkg
             const hasil = `INFORMASI GEMPA *BMKG*\n\n➸ *Jam* : ${Jam}\n➸ *Tanggal* : ${Tanggal}\n➸ *Lintang* : ${Lintang}\n➸ *Bujur* : ${Bujur}\n➸ *Coordinates* : ${point.coordinates}\n➸ *Magnitude* : ${Magnitude}\n➸ *Kedalaman* : ${Kedalaman}\n➸ *Potensi* : ${Potensi}\n➸ *Wilayah 1* : ${Wilayah1}\n➸ *Wilayah 2* : ${Wilayah2}\n➸ *Wilayah 3* : ${Wilayah3}\n➸ *Wilayah 4* : ${Wilayah4}\n➸ *Wilayah 5* : ${Wilayah5}`
-            await client.reply(from, hasil, id)
+            await client.reply(from, hasil.result, id)
             break
         case '!nh':
             if (!isOwner) return
@@ -292,7 +289,8 @@ module.exports = msgHandler = async (client, message) => {
                             client.sendFileFromUrl(from, pic, 'hentod.jpg', teks, id).then(() => 
                             client.sendFile(from, `./hentong/${nuklir}.pdf/${nuklir}.pdf.pdf`, `${title}.pdf`, '', id)).catch(() => 
                             client.sendFile(from, `./hentong/${nuklir}.pdf/${nuklir}.pdf.pdf`, `${title}.pdf`, '', id))
-                            /*if (error) {
+                            /*
+                            if (error) {
                                 console.log('error : '+ error.message)
                                 return
                             }
@@ -407,7 +405,7 @@ module.exports = msgHandler = async (client, message) => {
             const chatz = await client.getAllChatIds()
             for (let ids of chatz) {
                 var cvk = await client.getChatById(ids)
-                if (!cvk.isReadOnly) await client.sendText(ids, `[ Shinomiya Kaguya BOT Broadcast ]\n\n${msg}`)
+                if (!cvk.isReadOnly) await client.sendText(ids, `[ MCPR_BOT Broadcast ]\n\n${msg}`)
             }
             await client.reply(from, 'Broadcast Success!', id)
             break
@@ -434,7 +432,7 @@ module.exports = msgHandler = async (client, message) => {
                 hehe += '╠➥'
                 hehe += ` @${groupMem[i].id.replace(/@c.us/g, '')}\n`
             }
-            hehe += '╚═〘 Shinomiya Kaguya BOT 〙'
+            hehe += '╚═〘 MCPR_BOT 〙'
             await sleep(2000)
             await client.sendTextWithMentions(from, hehe)
             break
@@ -522,11 +520,11 @@ module.exports = msgHandler = async (client, message) => {
         case '!join':
             if (args.length === 1) return await client.reply(from, 'Kirim perintah *!join* linkgroup\n\nEx:\n!join https://chat.whatsapp.com/blablablablablabla', id)
             const link = body.slice(6)
-            const minMem = 30
+            const minMem = 3
             const isLink = link.match(/(https:\/\/chat.whatsapp.com)/gi)
             const check = await client.inviteInfo(link)
             if (!isLink) return await client.reply(from, 'Ini link? 👊🤬', id)
-            if (check.size < minMem) return await client.reply(from, 'Member group tidak melebihi 30, bot tidak bisa masuk', id)
+            if (check.size < minMem) return await client.reply(from, 'Member group tidak melebihi 10, bot tidak bisa masuk', id)
             if (check.status === 200) {
                 await client.joinGroupViaLink(link).then(() => client.reply(from, 'Bot akan segera masuk!'))
             } else {
@@ -698,7 +696,7 @@ module.exports = msgHandler = async (client, message) => {
             await client.reply(from, readme, id)
             break
         case '!info':
-            client.sendLinkWithAutoPreview(from, 'https://github.com/mhankbarbar/whatsapp-bot', info)
+            client.sendLinkWithAutoPreview(from, 'Informasi MCPR_BOT', info)
             break
         case '!snk':
             await client.reply(from, snk, id)
