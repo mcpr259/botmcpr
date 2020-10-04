@@ -539,9 +539,13 @@ module.exports = msgHandler = async (client, message) => {
             client.deleteMessage(quotedMsgObj.chatId, quotedMsgObj.id, false)
             break
         case '!getses':
+            if (!isOwner) return await client.reply(from, 'Perintah ini hanya untuk Owner bot', id)
             const sesPic = await client.getSnapshot()
             client.sendFile(from, sesPic, 'session.png', 'Neh...', id)
             break
+
+            
+
         case '!lirik':
             if (args.length == 1) return await client.reply(from, 'Kirim perintah *!lirik [optional]*, contoh *!lirik aku bukan boneka*', id)
             const lagu = body.slice(7)
@@ -586,6 +590,35 @@ module.exports = msgHandler = async (client, message) => {
             const jadwalNow = await get.get('https://api.haipbis.xyz/jadwaltvnow').json()
             await client.reply(from, `Jam : ${jadwalNow.jam}\n\nJadwalTV : ${jadwalNow.jadwalTV}`, id)
             break
+            //fitur beruuuu
+
+            case '!shrtlink':
+                if (args.length === 1)  return await client.reply(from, 'Kirim perintah *!shrtlink https://google.com*', id)
+                const slink = await get.get('https://api.haipbis.xyz/bitly?url='+ args[1]).json()
+                if (slink.error) return await client.reply(from, slink.error, id)
+                await client.reply(from, `ShortLink : ${slink.result}`, id)
+                break
+
+            case '!cord':
+                if (args.length === 1)  return await client.reply(from, 'Kirim perintah *!igStalk @username*\nConntoh *!igStalk @duar_amjay*', id)
+                const cord = await get.get('https://mhankbarbar.herokuapp.com/api/chord?q='+ args[1]).json()
+                if (cord.error) return await client.reply(from, cord.error, id)
+                await client.reply(from, `Hasil Pencarian : ${cord.result}`, id)
+                break
+            case '!txt':
+                if (args.length === 1)  return await client.reply(from, 'Kirim perintah *!igStalk @username*\nConntoh *!igStalk @duar_amjay*', id)
+                const txt3d = await get.get('https://api.haipbis.xyz/randomcooltext?text='+ args[1]).json()
+                if (txt3d.error) return await client.reply(from, txt3d.error, id)
+                await client.sendFileFromUrl(from, txt3d.image, id)
+                break
+            
+                case '!artinama':
+                    if (args.length === 1)  return await client.reply(from, 'Kirim perintah *!igStalk @username*\nConntoh *!igStalk @duar_amjay*', id)
+                    const artn = await get.get('ttps://scrap.terhambar.com/nama?n='+ args[1]).json()
+                    if (artn.error) return await client.reply(from, artn.error, id)
+                    await client.reply(from, `Hasi short link : ${artn.arti}`, id)
+                    break
+
         case '!waifu':
             const waifu = await get.get('https://mhankbarbar.herokuapp.com/api/waifu').json()
             client.sendFileFromUrl(from, waifu.image, 'Waifu.jpg', `➸ Name : ${waifu.name}\n➸ Description : ${waifu.desc}\n\n➸ Source : ${waifu.source}`, id)
