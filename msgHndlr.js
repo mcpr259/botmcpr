@@ -9,7 +9,7 @@ const nhentai = require('nhentai-js')
 const { API } = require('nhentai-api')
 const { liriklagu, quotemaker, randomNimek, fb, sleep, jadwalTv } = require('./lib/functions')
 const { menu, snk, info, donate, readme, listChannel } = require('./lib/help')
-
+const welkom = JSON.parse(fs.readFileSync('./lib/welcome.json'))
 moment.tz.setDefault('Asia/Jakarta').locale('id')
 
 module.exports = msgHandler = async (client, message) => {
@@ -52,7 +52,7 @@ module.exports = msgHandler = async (client, message) => {
         const groupAdmins = isGroupMsg ? await client.getGroupAdmins(groupId) : ''
         const isGroupAdmins = isGroupMsg ? groupAdmins.includes(sender.id) : false
         const isBotGroupAdmins = isGroupMsg ? groupAdmins.includes(botNumber + '@c.us') : false
-        const ownerNumber = '6283107660652@c.us'
+        const ownerNumber = '6285156833669@c.us'
         const isOwner = sender.id === ownerNumber
         const isBlocked = blockNumber.includes(sender.id) === true
         const uaOverride = 'WhatsApp/2.2029.4 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'
@@ -108,7 +108,10 @@ module.exports = msgHandler = async (client, message) => {
                 }
             }
             break
-
+        case '!creator':
+                client.sendContact(from, '6285156833669@c.us')
+                break
+            
         case '!donasi':
         case '!donate':
             client.sendLinkWithAutoPreview(from, 'https://saweria.co/donate/mcpr25', donate)
@@ -436,6 +439,22 @@ module.exports = msgHandler = async (client, message) => {
             await sleep(2000)
             await client.sendTextWithMentions(from, hehe)
             break
+        case '!welcome':
+            if (!isGroupMsg) return client.reply(from, 'Perintah ini hanya bisa di gunakan dalam group!', id)
+            if (!isGroupAdmins) return client.reply(from, 'Perintah ini hanya bisa di gunakan oleh Admin group!', id)
+            if (args.length === 1) return client.reply(from, 'Pilih enable atau disable!', id)
+                if (args[1].toLowerCase() === 'enable') {
+                    welkom.push(chat.id)
+                    fs.writeFileSync('./lib/welcome.json', JSON.stringify(welkom))
+                    client.reply(from, 'Fitur welcome berhasil di aktifkan di group ini!', id)
+                } else if (args[1].toLowerCase() === 'disable') {
+                    welkom.splice(chat.id, 1)
+                fs.writeFileSync('./lib/welcome.json', JSON.stringify(welkom))
+                client.reply(from, 'Fitur welcome berhasil di nonaktifkan di group ini!', id)
+            } else {
+                client.reply(from, 'Pilih enable atau disable udin!', id)
+            }
+        break
         case '!kickall':
             if (!isGroupMsg) return await client.reply(from, 'Perintah ini hanya bisa di gunakan dalam group!', id)
             const isGroupOwner = sender.id === chat.groupMetadata.owner
@@ -592,6 +611,14 @@ module.exports = msgHandler = async (client, message) => {
             break
             //fitur beruuuu
 
+            case '!hnt':
+            
+            if (isGroupMsg) return await client.reply(from, 'Privat chat goblo lu mu ena bagi-bagi!', id)
+            if (!isOwner) return await client.reply(from, 'Cuman Owner bot yang bisa akses :v awkawk', id)
+            const hn = await get('https://api.computerfreaker.cf/v1/hentai').json()
+            await client.sendFileFromUrl(from, hn.url, id)
+            break
+
             case '!shrtlink':
                 if (args.length === 1)  return await client.reply(from, 'Kirim perintah *!shrtlink https://google.com*', id)
                 const slink = await get.get('https://api.haipbis.xyz/bitly?url='+ args[1]).json()
@@ -618,6 +645,7 @@ module.exports = msgHandler = async (client, message) => {
                     if (artn.error) return await client.reply(from, artn.error, id)
                     await client.reply(from, `Hasi short link : ${artn.arti}`, id)
                     break
+
 
         case '!waifu':
             const waifu = await get.get('https://mhankbarbar.herokuapp.com/api/waifu').json()
